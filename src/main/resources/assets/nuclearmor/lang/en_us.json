@@ -1,0 +1,8 @@
+{
+    "itemGroup.nuclearmor": "NucleArmor Items",
+
+    "item.nuclearmor.nuclear_helmet": "Nuclear Helmet",
+	"item.nuclearmor.nuclear_chestplate": "Nuclear Chestplate",
+	"item.nuclearmor.nuclear_leggings": "Nuclear Leggings",
+	"item.nuclearmor.nuclear_boots": "Nuclear Boots"
+}

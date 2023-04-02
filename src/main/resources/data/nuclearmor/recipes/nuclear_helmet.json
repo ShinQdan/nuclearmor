@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "sss",
+        "s s",
+        "   "
+    ],
+    "key": {
+        "s": {
+            "tag": "forge:ingots/steel"
+        }
+    },
+    "result": {
+        "item": "nuclearmor:nuclear_helmet"
+    }
+}

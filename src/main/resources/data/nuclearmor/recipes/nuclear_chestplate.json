@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "s s",
+        "sus",
+        "sss"
+    ],
+    "key": {
+        "s": {
+            "tag": "forge:ingots/steel"
+        },
+        "u": {
+            "tag": "forge:ingots/uranium"
+        }
+    },
+    "result": {
+        "item": "nuclearmor:nuclear_chestplate"
+    }
+}
