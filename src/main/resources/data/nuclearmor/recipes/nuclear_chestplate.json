@@ -1,9 +1,9 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "s s",
         "sus",
-        "sss"
+        "uiu",
+        "sus"
     ],
     "key": {
         "s": {
@@ -11,6 +11,9 @@
         },
         "u": {
             "tag": "forge:ingots/uranium"
+        },
+        "i": {
+            "item": "minecraft:iron_chestplate"
         }
     },
     "result": {

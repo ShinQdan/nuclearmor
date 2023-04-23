@@ -27,7 +27,7 @@ public class NucleArmorMaterial implements ArmorMaterial {
 
 	@Override
 	public int getDurabilityForSlot(EquipmentSlot slot) {
-		return slot==EquipmentSlot.CHEST ? 1620 : ArmorMaterials.IRON.getDurabilityForSlot(slot)+100;
+		return slot==EquipmentSlot.CHEST ? 4800 : ArmorMaterials.IRON.getDurabilityForSlot(slot)+100;
 	}
 
 	@Override
