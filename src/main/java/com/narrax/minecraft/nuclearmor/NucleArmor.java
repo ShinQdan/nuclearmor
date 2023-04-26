@@ -36,8 +36,10 @@ public class NucleArmor {
         public static void armorDamageHandler(LivingHurtEvent event){
             for(ItemStack armor : event.getEntity().getArmorSlots()){
                 if(armor.getItem() instanceof NucleArmorItem nArmor){
-                    LOGGER.info("Damage event fired with chest:" + nArmor.isPowered(armor));
-                    event.setAmount(nArmor.handleDamage(event.getEntity(), armor.getEquipmentSlot(), event.getSource(), event.getAmount()));
+                    // LOGGER.info("Damage event fired with chest:" + nArmor.isPowered(armor));
+                    float dmg = nArmor.handleDamage(event.getEntity(), armor.getEquipmentSlot(), event.getSource(), event.getAmount());
+                    // LOGGER.info("Damage left: "+dmg);
+                    event.setAmount(dmg);
                 }
             }
         }

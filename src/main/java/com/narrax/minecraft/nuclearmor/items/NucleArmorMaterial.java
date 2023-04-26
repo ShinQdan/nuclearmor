@@ -17,7 +17,7 @@ public class NucleArmorMaterial implements ArmorMaterial {
 	public static final NucleArmorMaterial NUCLEAR_MATERIAL_OTHER = new NucleArmorMaterial(false);
 
 	public static final TagKey<Item> INGREDIENT_POWER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/uranium"));
-	public static final TagKey<Item> INGREDIENT_OTHER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/iron"));
+	public static final TagKey<Item> INGREDIENT_OTHER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/steel"));
 
 	protected final boolean powerSource;
 

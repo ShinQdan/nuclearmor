@@ -5,9 +5,6 @@ import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.narrax.minecraft.nuclearmor.NucleArmor;
-import com.narrax.minecraft.nuclearmor.items.model.NucleArmorModel;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -79,13 +76,9 @@ public class NucleArmorItem extends ArmorItem {
 	}
 
 	public float handleDamage(LivingEntity entity, EquipmentSlot slot, DamageSource source, float amount){
-		NucleArmor.LOGGER.info("Initial dmg amout"+amount);
         ItemStack stack = entity.getItemBySlot(slot);
 		if(
-			isPowered(stack) && (
-				!(source.isBypassArmor() || source.isFall()) 
-				|| (source.isFall() && entity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof NucleArmorItem)
-			)
+			isPowered(stack) && (!source.isBypassArmor() || source.isFall() || source==DamageSource.FREEZE)
 		){
 			for(ItemStack aStack : entity.getArmorSlots()){
 				//if entity does not have a full set the damage is not reduced.
@@ -95,15 +88,12 @@ public class NucleArmorItem extends ArmorItem {
 			int max = stack.getMaxDamage()-1;
 			if(power+amount < max){
 				stack.setDamageValue((int)(power+amount));
-				NucleArmor.LOGGER.info("Damage reduced to 0");
 				return 0;
 			}else{
 				stack.setDamageValue(max);
-				NucleArmor.LOGGER.info("Damage reduced to "+(power+amount-max));
 				return power+amount-max;
 			}
 		}
-		NucleArmor.LOGGER.info("Damage not reduced");
 		return amount;
     }
 
