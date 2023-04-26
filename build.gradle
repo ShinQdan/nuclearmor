@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '19.2.2'
+version = '19.2.3'
 group = 'com.narrax.minecraft.nuclearmor' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'nuclearmor'
 
@@ -135,7 +135,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.8'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.0'
 
     // JEI
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}:api") // Adds JEI API as a compile dependency
@@ -149,12 +149,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "examplemod",
-                "Specification-Vendor"    : "examplemodsareus",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Specification-Title"     : "NucleArmor",
+                "Specification-Vendor"    : "Narrax",
+                "Specification-Version"   : "3", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "examplemodsareus",
+                "Implementation-Vendor"   : "Narrax",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

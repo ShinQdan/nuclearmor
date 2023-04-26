@@ -8,8 +8,11 @@ import org.jetbrains.annotations.Nullable;
 import com.narrax.minecraft.nuclearmor.NucleArmor;
 import com.narrax.minecraft.nuclearmor.items.model.NucleArmorModel;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -23,9 +26,11 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 public class NucleArmorItem extends ArmorItem {
+	private final ModelLayerLocation location;
 
-	public NucleArmorItem(NucleArmorMaterial material, EquipmentSlot slot, Properties properties) {
-		super(material, slot, properties.tab(CreativeModeTab.TAB_COMBAT));
+	public NucleArmorItem(NucleArmorMaterial material, EquipmentSlot slot, ModelLayerLocation location) {
+		super(material, slot, new Properties().tab(CreativeModeTab.TAB_COMBAT));
+		this.location = location;
 	}
 
 	public boolean isPowerSource(ItemStack stack){
@@ -45,8 +50,6 @@ public class NucleArmorItem extends ArmorItem {
 		else if(chest.getDamageValue()<chest.getMaxDamage()*9/10) return 1;
 		else return 0;
 	}
-
-
 	
 	@Override
 	public void onArmorTick(ItemStack stack, Level level, Player player) {
@@ -144,8 +147,10 @@ public class NucleArmorItem extends ArmorItem {
 	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
 		consumer.accept(new IClientItemExtensions() {
 			@Override
-			public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-				return new NucleArmorModel(equipmentSlot, original);
+			public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+				EntityModelSet models = Minecraft.getInstance().getEntityModels();
+				ModelPart root = models.bakeLayer(location);
+				return new HumanoidModel<LivingEntity>(root);
 			}
 		});
 	}
