@@ -3,7 +3,6 @@ package com.narrax.minecraft.nuclearmor.items.model;
 import com.narrax.minecraft.nuclearmor.NucleArmor;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;

@@ -5,6 +5,8 @@ import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.narrax.minecraft.nuclearmor.items.model.NucleArmorModel;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -23,11 +25,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 public class NucleArmorItem extends ArmorItem {
-	private final ModelLayerLocation location;
 
-	public NucleArmorItem(NucleArmorMaterial material, EquipmentSlot slot, ModelLayerLocation location) {
+	public NucleArmorItem(NucleArmorMaterial material, EquipmentSlot slot) {
 		super(material, slot, new Properties().tab(CreativeModeTab.TAB_COMBAT));
-		this.location = location;
 	}
 
 	public boolean isPowerSource(ItemStack stack){
@@ -139,7 +139,22 @@ public class NucleArmorItem extends ArmorItem {
 			@Override
 			public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 				EntityModelSet models = Minecraft.getInstance().getEntityModels();
-				ModelPart root = models.bakeLayer(location);
+				ModelPart root = null;
+				switch(slot){
+					case HEAD:
+						root = models.bakeLayer(NucleArmorModel.LAYER_HEAD);
+						break;
+					case CHEST:
+						root = models.bakeLayer(NucleArmorModel.LAYER_CHEST);
+						break;
+					case LEGS:
+						root = models.bakeLayer(NucleArmorModel.LAYER_LEGS);
+						break;
+					case FEET:
+						root = models.bakeLayer(NucleArmorModel.LAYER_FEET);
+						break;
+					default: break;
+				}
 				return new HumanoidModel<LivingEntity>(root);
 			}
 		});
