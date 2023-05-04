@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "nuclearmor:items/nuclear_chestplate"
+    "layer0": "nuclearmor:item/nuclear_chestplate"
   }
 }

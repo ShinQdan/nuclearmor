@@ -10,7 +10,6 @@ import com.narrax.minecraft.nuclearmor.items.model.NucleArmorModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,7 +18,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -27,7 +25,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 public class NucleArmorItem extends ArmorItem {
 
 	public NucleArmorItem(NucleArmorMaterial material, EquipmentSlot slot) {
-		super(material, slot, new Properties().tab(CreativeModeTab.TAB_COMBAT));
+		super(material, slot, new Properties());
 	}
 
 	public boolean isPowerSource(ItemStack stack){
