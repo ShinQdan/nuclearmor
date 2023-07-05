@@ -126,7 +126,7 @@ public class NucleArmorItem extends ArmorItem {
 	@Override
 	public boolean isValidRepairItem(ItemStack tool, ItemStack material){
 		if(tool.getItem() instanceof NucleArmorItem nArmor && nArmor.getMaterial() instanceof NucleArmorMaterial nMaterial){
-			return material.is(nMaterial.powerSource ? NucleArmorMaterial.INGREDIENT_POWER_TAG : NucleArmorMaterial.INGREDIENT_OTHER_TAG);
+			return material.is(nMaterial.getRepairTagKey());
 		}
 		return false;
 	}

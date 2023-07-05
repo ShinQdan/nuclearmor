@@ -1,13 +1,13 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "sus",
+        "lul",
         "uiu",
-        "sus"
+        "lul"
     ],
     "key": {
-        "s": {
-            "tag": "forge:ingots/steel"
+        "l": {
+            "tag": "forge:ingots/lead"
         },
         "u": {
             "tag": "forge:ingots/uranium"
