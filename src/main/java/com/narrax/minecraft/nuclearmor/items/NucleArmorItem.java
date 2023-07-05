@@ -10,7 +10,6 @@ import com.narrax.minecraft.nuclearmor.items.model.NucleArmorModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -128,7 +127,7 @@ public class NucleArmorItem extends ArmorItem {
 	@Override
 	public boolean isValidRepairItem(ItemStack tool, ItemStack material){
 		if(tool.getItem() instanceof NucleArmorItem nArmor && nArmor.getMaterial() instanceof NucleArmorMaterial nMaterial){
-			return material.is(nMaterial.powerSource ? NucleArmorMaterial.INGREDIENT_POWER_TAG : NucleArmorMaterial.INGREDIENT_OTHER_TAG);
+			return material.is(nMaterial.getRepairTagKey());
 		}
 		return false;
 	}

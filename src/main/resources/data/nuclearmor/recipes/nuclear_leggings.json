@@ -1,13 +1,16 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "sss",
-        "s s",
-        "s s"
+        "lil",
+        "l l",
+        "   "
     ],
     "key": {
-        "s": {
-            "tag": "forge:ingots/steel"
+        "l": {
+            "tag": "forge:ingots/lead"
+        },
+        "i": {
+            "item": "minecraft:iron_leggings"
         }
     },
     "result": {
