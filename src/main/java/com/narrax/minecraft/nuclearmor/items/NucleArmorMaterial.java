@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
@@ -26,13 +26,13 @@ public class NucleArmorMaterial implements ArmorMaterial {
 	}
 
 	@Override
-	public int getDurabilityForSlot(EquipmentSlot slot) {
-		return slot==EquipmentSlot.CHEST ? 4800 : ArmorMaterials.IRON.getDurabilityForSlot(slot)+100;
+	public int getDurabilityForType(ArmorItem.Type armorType) {
+		return armorType==ArmorItem.Type.CHESTPLATE ? 4800 : ArmorMaterials.IRON.getDurabilityForType(armorType)+100;
 	}
 
 	@Override
-	public int getDefenseForSlot(EquipmentSlot slot) {
-		return ArmorMaterials.IRON.getDefenseForSlot(slot);
+	public int getDefenseForType(ArmorItem.Type armorType) {
+		return ArmorMaterials.IRON.getDefenseForType(armorType);
 	}
 
 	@Override
