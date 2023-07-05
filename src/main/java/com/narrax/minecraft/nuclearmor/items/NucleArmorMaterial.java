@@ -17,7 +17,7 @@ public class NucleArmorMaterial implements ArmorMaterial {
 	public static final NucleArmorMaterial NUCLEAR_MATERIAL_OTHER = new NucleArmorMaterial(false);
 
 	public static final TagKey<Item> INGREDIENT_POWER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/uranium"));
-	public static final TagKey<Item> INGREDIENT_OTHER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/steel"));
+	public static final TagKey<Item> INGREDIENT_OTHER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/iron"));
 
 	protected final boolean powerSource;
 
@@ -27,7 +27,7 @@ public class NucleArmorMaterial implements ArmorMaterial {
 
 	@Override
 	public int getDurabilityForType(ArmorItem.Type armorType) {
-		return armorType==ArmorItem.Type.CHESTPLATE ? 4800 : ArmorMaterials.IRON.getDurabilityForType(armorType)+100;
+		return armorType==ArmorItem.Type.CHESTPLATE ? 4800 : ArmorMaterials.IRON.getDurabilityForType(armorType);
 	}
 
 	@Override
@@ -45,9 +45,13 @@ public class NucleArmorMaterial implements ArmorMaterial {
 		return ArmorMaterials.IRON.getEquipSound();
 	}
 
+	public TagKey<Item> getRepairTagKey() {
+		return powerSource ? INGREDIENT_POWER_TAG : INGREDIENT_OTHER_TAG;
+	}
+
 	@Override
 	public Ingredient getRepairIngredient() {
-		return Ingredient.of(powerSource ? null : INGREDIENT_OTHER_TAG);
+		return Ingredient.of(getRepairTagKey());
 	}
 
 	@Override

@@ -1,13 +1,16 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "sss",
-        "s s",
+        " l ",
+        "lhl",
         "   "
     ],
     "key": {
-        "s": {
-            "tag": "forge:ingots/steel"
+        "l": {
+            "tag": "forge:ingots/lead"
+        },
+        "h": {
+            "item": "minecraft:iron_helmet"
         }
     },
     "result": {
