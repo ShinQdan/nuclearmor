@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '19.2.4'
+version = '19.2.5'
 group = 'com.narrax.minecraft.nuclearmor' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'nuclearmor'
 
@@ -151,7 +151,7 @@ jar {
         attributes([
                 "Specification-Title"     : "NucleArmor",
                 "Specification-Vendor"    : "Narrax",
-                "Specification-Version"   : "3", // Build number
+                "Specification-Version"   : "5", // Build number
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "Narrax",
