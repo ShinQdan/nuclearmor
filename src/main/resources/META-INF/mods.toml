@@ -1,27 +1,27 @@
 modLoader="javafml"
-loaderVersion="[45,46)"
-license="GNU GPLv3"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
 issueTrackerURL="https://github.com/ShinQdan/nuclearmor"
 
 # A list of mods
 [[mods]] #mandatory
 # The modid of the mod
-modId="nuclearmor"
+modId="${mod_id}"
 # The version number of the mod
-version="${file.jarVersion}"
+version="${mod_version}"
  # A display name for the mod
-displayName="NucleArmor"
+displayName="${mod_name}"
 # A URL to query for updates for this mod.
 #updateJSONURL="https://change.me.example.invalid/updates.json"
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
 logoFile="nuclearmor.png" #optional
 credits="KlaraAga for help with armor's texture."
-authors="Shin Q'dan"
+authors="${mod_authors}"
 
 # The description text for the mod
 description='''
-This mod adds powerful armor, which runs on uranium.
+${mod_description}
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.nuclearmor]] #optional
@@ -30,7 +30,7 @@ This mod adds powerful armor, which runs on uranium.
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[45,46)" #mandatory
+    versionRange="${forge_version_range}" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -39,7 +39,6 @@ This mod adds powerful armor, which runs on uranium.
 [[dependencies.nuclearmor]]
     modId="minecraft"
     mandatory=true
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.19.4,1.20)"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"

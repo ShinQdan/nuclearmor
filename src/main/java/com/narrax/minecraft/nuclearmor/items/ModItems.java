@@ -6,7 +6,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -23,8 +23,8 @@ public class ModItems {
 	private static final RegistryObject<Item> NUCLEARMOR_BOOTS = ITEMS.register("nuclear_boots", () -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_OTHER, ArmorItem.Type.BOOTS));
 
 	@SubscribeEvent
-	public static void creativeTabBuildContents(CreativeModeTabEvent.BuildContents event){
-		if(event.getTab()==CreativeModeTabs.COMBAT){
+	public static void creativeTabBuildContents(BuildCreativeModeTabContentsEvent event){
+		if(event.getTabKey()==CreativeModeTabs.COMBAT){
 			ITEMS.getEntries().forEach(entry -> event.accept(entry.get()));
 		}
 	}
