@@ -8,13 +8,12 @@ import com.narrax.minecraft.nuclearmor.items.NucleArmorItem;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(NucleArmor.MODID)
@@ -22,9 +21,7 @@ public class NucleArmor {
     public static final String MODID = "nuclearmor";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public NucleArmor(){
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public NucleArmor(IEventBus modEventBus){
         // Register items
         ModItems.ITEMS.register(modEventBus);
     }
