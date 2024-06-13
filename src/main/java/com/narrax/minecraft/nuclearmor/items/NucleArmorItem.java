@@ -55,22 +55,17 @@ public class NucleArmorItem extends ArmorItem {
 			if(power>1){
 				removeNerfs(player);
 				applyBuffs(player);
-				switch(type){
-					case HELMET:
-						if(player.getAirSupply()<player.getMaxAirSupply()){
-							player.setAirSupply(player.getMaxAirSupply());
-						}
-						break;
-					case CHESTPLATE:
-						if(stack.getDamageValue()<stack.getMaxDamage()-1){
-							stack.setDamageValue(stack.getDamageValue()+1);
-						}
-						break;
-					default: break;
+				if(type==Type.HELMET && player.getAirSupply()<player.getMaxAirSupply()){
+					player.setAirSupply(player.getMaxAirSupply());
 				}
 			}else if(power<1){
 				removeBuffs(player);
 				applyNerfs(player);
+			}else{
+				removeNerfs(player);
+			}
+			if(isPowered(stack)){
+				stack.setDamageValue(stack.getDamageValue()+1);
 			}
 		}
 	}
