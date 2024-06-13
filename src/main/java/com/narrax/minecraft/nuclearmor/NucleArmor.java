@@ -10,8 +10,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
 
@@ -27,7 +28,7 @@ public class NucleArmor {
     }
 
     //Events
-    @Mod.EventBusSubscriber(modid = MODID, bus = Bus.FORGE)
+    @EventBusSubscriber(modid = MODID, bus = Bus.GAME)
     public static class ModEvents{
         @SubscribeEvent
         public static void armorDamageHandler(LivingHurtEvent event){

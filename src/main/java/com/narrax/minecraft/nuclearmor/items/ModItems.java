@@ -2,25 +2,40 @@ package com.narrax.minecraft.nuclearmor.items;
 
 import com.narrax.minecraft.nuclearmor.NucleArmor;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-@Mod.EventBusSubscriber(modid = NucleArmor.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = NucleArmor.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class ModItems {
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, NucleArmor.MODID);
+	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NucleArmor.MODID);
 
-	private static final DeferredHolder<Item, NucleArmorItem> NUCLEARMOR_HELMET = ITEMS.register("nuclear_helmet", () -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_OTHER, ArmorItem.Type.HELMET));
-	private static final DeferredHolder<Item, NucleArmorItem> NUCLEARMOR_CHESTPLATE = ITEMS.register("nuclear_chestplate", () -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_CHEST, ArmorItem.Type.CHESTPLATE));
-	private static final DeferredHolder<Item, NucleArmorItem> NUCLEARMOR_LEGGINGS = ITEMS.register("nuclear_leggings", () -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_OTHER, ArmorItem.Type.LEGGINGS));
-	private static final DeferredHolder<Item, NucleArmorItem> NUCLEARMOR_BOOTS = ITEMS.register("nuclear_boots", () -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_OTHER, ArmorItem.Type.BOOTS));
+	private static final DeferredItem<NucleArmorItem> NUCLEARMOR_HELMET = ITEMS.registerItem(
+		"nuclear_helmet", 
+		(properties) -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_OTHER, ArmorItem.Type.HELMET, properties),
+		new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(20))
+	);
+	private static final DeferredItem<NucleArmorItem> NUCLEARMOR_CHESTPLATE = ITEMS.registerItem(
+		"nuclear_chestplate", 
+		(properties) -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_CHEST, ArmorItem.Type.CHESTPLATE, properties),
+		new Item.Properties().durability(4800)
+	);
+	private static final DeferredItem<NucleArmorItem> NUCLEARMOR_LEGGINGS = ITEMS.registerItem(
+		"nuclear_leggings", 
+		(properties) -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_OTHER, ArmorItem.Type.LEGGINGS, properties),
+		new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(20))
+	);
+	private static final DeferredItem<NucleArmorItem> NUCLEARMOR_BOOTS = ITEMS.registerItem(
+		"nuclear_boots", 
+		(properties) -> new NucleArmorItem(NucleArmorMaterial.NUCLEAR_MATERIAL_OTHER, ArmorItem.Type.BOOTS, properties),
+		new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(20))
+	);
 
 	@SubscribeEvent
 	public static void creativeTabBuildContents(BuildCreativeModeTabContentsEvent event){

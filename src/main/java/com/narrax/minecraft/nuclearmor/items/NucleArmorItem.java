@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -20,22 +21,24 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 public class NucleArmorItem extends ArmorItem {
 
-	public NucleArmorItem(NucleArmorMaterial material, ArmorItem.Type armorType) {
-		super(material, armorType, new Properties());
+	public NucleArmorItem(Holder<ArmorMaterial> material, ArmorItem.Type armorType, Properties properties) {
+		super(material, armorType, properties);
 	}
 
 	public boolean isPowerSource(ItemStack stack){
-		return stack.getItem() instanceof NucleArmorItem nArmor && nArmor.material instanceof NucleArmorMaterial nMaterial && nMaterial.powerSource;
+		return stack.getItem() instanceof NucleArmorItem nArmor && nArmor.material.getRegisteredName().equals(NucleArmorMaterial.NUCLEAR_NAME_CHEST);
 	}
 
 	public boolean isPowered(ItemStack stack){
 		if(isPowerSource(stack)){
+			// System.out.println("Dmg: "+stack.getDamageValue()+"/"+(stack.getMaxDamage()-1));
 			return stack.getDamageValue() < stack.getMaxDamage()-1;
 		}else return false;
 	}
@@ -55,22 +58,17 @@ public class NucleArmorItem extends ArmorItem {
 			if(power>1){
 				removeNerfs(player);
 				applyBuffs(player);
-				switch(type){
-					case HELMET:
-						if(player.getAirSupply()<player.getMaxAirSupply()){
-							player.setAirSupply(player.getMaxAirSupply());
-						}
-						break;
-					case CHESTPLATE:
-						if(stack.getDamageValue()<stack.getMaxDamage()-1){
-							stack.setDamageValue(stack.getDamageValue()+1);
-						}
-						break;
-					default: break;
+				if(type==Type.HELMET && player.getAirSupply()<player.getMaxAirSupply()){
+					player.setAirSupply(player.getMaxAirSupply());
 				}
 			}else if(power<1){
 				removeBuffs(player);
 				applyNerfs(player);
+			}else{
+				removeNerfs(player);
+			}
+			if(isPowered(stack)){
+				stack.setDamageValue(stack.getDamageValue()+1);
 			}
 		}
 	}
@@ -110,7 +108,7 @@ public class NucleArmorItem extends ArmorItem {
     }
 
 	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Runnable onBroken) {
 		if(isPowerSource(stack) && stack.getDamageValue()+amount >= stack.getMaxDamage()-1){
 			return 0;
 		}else return super.damageItem(stack, amount, entity, onBroken);
@@ -135,14 +133,6 @@ public class NucleArmorItem extends ArmorItem {
 	@Override
 	public boolean isRepairable(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public boolean isValidRepairItem(ItemStack tool, ItemStack material){
-		if(tool.getItem() instanceof NucleArmorItem nArmor && nArmor.getMaterial() instanceof NucleArmorMaterial nMaterial){
-			return material.is(nMaterial.getRepairTagKey());
-		}
-		return false;
 	}
 
 	@Override
