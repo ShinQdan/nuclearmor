@@ -1,7 +1,14 @@
 package com.narrax.minecraft.nuclearmor.items;
 
+import java.util.EnumMap;
+import java.util.List;
+
 import com.narrax.minecraft.nuclearmor.NucleArmor;
 
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
@@ -12,61 +19,54 @@ import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class NucleArmorMaterial implements ArmorMaterial {
-	public static final NucleArmorMaterial NUCLEAR_MATERIAL_CHEST = new NucleArmorMaterial(true);
-	public static final NucleArmorMaterial NUCLEAR_MATERIAL_OTHER = new NucleArmorMaterial(false);
-
+public class NucleArmorMaterial {
+	public static final String NUCLEAR_NAME_CHEST = NucleArmor.MODID+":nuclear_armor_chest";
+	
 	public static final TagKey<Item> INGREDIENT_POWER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/uranium"));
 	public static final TagKey<Item> INGREDIENT_OTHER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/iron"));
 
-	protected final boolean powerSource;
-
-	private NucleArmorMaterial(boolean repairable){
-		this.powerSource = repairable;
-	}
-
-	@Override
-	public int getDurabilityForType(ArmorItem.Type armorType) {
-		return armorType==ArmorItem.Type.CHESTPLATE ? 4800 : ArmorMaterials.IRON.getDurabilityForType(armorType);
-	}
-
-	@Override
-	public int getDefenseForType(ArmorItem.Type armorType) {
-		return ArmorMaterials.IRON.getDefenseForType(armorType);
-	}
-
-	@Override
-	public int getEnchantmentValue() {
-		return 0;
-	}
-
-	@Override
-	public SoundEvent getEquipSound() {
-		return ArmorMaterials.IRON.getEquipSound();
-	}
-
-	public TagKey<Item> getRepairTagKey() {
-		return powerSource ? INGREDIENT_POWER_TAG : INGREDIENT_OTHER_TAG;
-	}
-
-	@Override
-	public Ingredient getRepairIngredient() {
-		return Ingredient.of(getRepairTagKey());
-	}
-
-	@Override
-	public String getName() {
-		return NucleArmor.MODID+":nuclear_armor";
-	}
-
-	@Override
-	public float getToughness() {
-		return ArmorMaterials.IRON.getToughness();
-	}
-
-	@Override
-	public float getKnockbackResistance() {
-		return 0.25f;
-	}
-	
+	public static final Holder<ArmorMaterial> NUCLEAR_MATERIAL_CHEST = Registry.registerForHolder(
+		BuiltInRegistries.ARMOR_MATERIAL,
+		new ResourceLocation(NucleArmor.MODID, "nuclear_armor_chest"),
+		new ArmorMaterial(
+			Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+				map.put(ArmorItem.Type.BODY, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BODY));
+				map.put(ArmorItem.Type.HELMET, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.HELMET));
+				map.put(ArmorItem.Type.CHESTPLATE, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.CHESTPLATE));
+				map.put(ArmorItem.Type.LEGGINGS, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.LEGGINGS));
+				map.put(ArmorItem.Type.BOOTS, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BOOTS));
+			}),
+			0,
+			ArmorMaterials.IRON.value().equipSound(),
+			() -> Ingredient.of(INGREDIENT_POWER_TAG),
+			List.of(
+				new ArmorMaterial.Layer(new ResourceLocation(NucleArmor.MODID, "nuclear_armor"), "", false),
+				new ArmorMaterial.Layer(new ResourceLocation(NucleArmor.MODID, "nuclear_armor"), "", false)
+			),
+			ArmorMaterials.IRON.value().toughness(),
+			ArmorMaterials.IRON.value().knockbackResistance()
+		)
+	);
+	public static final Holder<ArmorMaterial> NUCLEAR_MATERIAL_OTHER = Registry.registerForHolder(
+		BuiltInRegistries.ARMOR_MATERIAL,
+		new ResourceLocation(NucleArmor.MODID, "nuclear_armor_other"),
+		new ArmorMaterial(
+			Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+				map.put(ArmorItem.Type.BODY, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BODY));
+				map.put(ArmorItem.Type.HELMET, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.HELMET));
+				map.put(ArmorItem.Type.CHESTPLATE, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.CHESTPLATE));
+				map.put(ArmorItem.Type.LEGGINGS, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.LEGGINGS));
+				map.put(ArmorItem.Type.BOOTS, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BOOTS));
+			}),
+			0,
+			ArmorMaterials.IRON.value().equipSound(),
+			() -> Ingredient.of(INGREDIENT_POWER_TAG),
+			List.of(
+				new ArmorMaterial.Layer(new ResourceLocation(NucleArmor.MODID, "nuclear_armor"), "", false),
+				new ArmorMaterial.Layer(new ResourceLocation(NucleArmor.MODID, "nuclear_armor"), "", false)
+			),
+			ArmorMaterials.IRON.value().toughness(),
+			ArmorMaterials.IRON.value().knockbackResistance()
+		)
+	);
 }
