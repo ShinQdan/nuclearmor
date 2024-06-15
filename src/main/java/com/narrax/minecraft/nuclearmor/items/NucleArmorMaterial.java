@@ -30,6 +30,10 @@ public class NucleArmorMaterial {
 		new ArmorMaterial(
 			Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 				map.put(ArmorItem.Type.BODY, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BODY));
+				map.put(ArmorItem.Type.HELMET, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.HELMET));
+				map.put(ArmorItem.Type.CHESTPLATE, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.CHESTPLATE));
+				map.put(ArmorItem.Type.LEGGINGS, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.LEGGINGS));
+				map.put(ArmorItem.Type.BOOTS, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BOOTS));
 			}),
 			0,
 			ArmorMaterials.IRON.value().equipSound(),
@@ -48,6 +52,10 @@ public class NucleArmorMaterial {
 		new ArmorMaterial(
 			Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 				map.put(ArmorItem.Type.BODY, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BODY));
+				map.put(ArmorItem.Type.HELMET, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.HELMET));
+				map.put(ArmorItem.Type.CHESTPLATE, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.CHESTPLATE));
+				map.put(ArmorItem.Type.LEGGINGS, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.LEGGINGS));
+				map.put(ArmorItem.Type.BOOTS, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BOOTS));
 			}),
 			0,
 			ArmorMaterials.IRON.value().equipSound(),
