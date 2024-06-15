@@ -1,6 +1,7 @@
 package com.narrax.minecraft.nuclearmor.items;
 
 import java.util.function.Consumer;
+import java.util.stream.StreamSupport;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,6 +18,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -42,7 +44,7 @@ public class NucleArmorItem extends ArmorItem {
 		}else return false;
 	}
 
-	public int powerLevel(Player player){
+	public int powerLevel(LivingEntity player){
 		ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
 		if(!isPowered(chest)) return 0;
 		if(chest.getDamageValue()<chest.getMaxDamage()*8/10) return 2;
@@ -51,20 +53,25 @@ public class NucleArmorItem extends ArmorItem {
 	}
 	
 	@Override
-	public void onArmorTick(ItemStack stack, Level level, Player player) {
-		if(!level.isClientSide() && level.getGameTime()%20==0){
-			int power = powerLevel(player);
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
+		if(
+			!level.isClientSide() 
+			&& level.getGameTime()%20==0
+			&& entity instanceof LivingEntity living
+			&& StreamSupport.stream(living.getArmorSlots().spliterator(), false).anyMatch(s -> s==stack)
+		){
+			int power = powerLevel(living);
 			if(power>1){
-				removeNerfs(player);
-				applyBuffs(player);
-				if(type==Type.HELMET && player.getAirSupply()<player.getMaxAirSupply()){
-					player.setAirSupply(player.getMaxAirSupply());
+				removeNerfs(living);
+				applyBuffs(living);
+				if(type==Type.HELMET && living.getAirSupply()<living.getMaxAirSupply()){
+					living.setAirSupply(living.getMaxAirSupply());
 				}
 			}else if(power<1){
-				removeBuffs(player);
-				applyNerfs(player);
+				removeBuffs(living);
+				applyNerfs(living);
 			}else{
-				removeNerfs(player);
+				removeNerfs(living);
 			}
 			if(isPowered(stack)){
 				stack.setDamageValue(stack.getDamageValue()+1);
@@ -149,68 +156,68 @@ public class NucleArmorItem extends ArmorItem {
 		});
 	}
 
-	protected void applyBuffs(Player player){
+	protected void applyBuffs(LivingEntity living){
 		switch(type){
 			case HELMET:
-				player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2000, 0, false, false, false));
+				living.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2000, 0, false, false, false));
 				break;
 			case CHESTPLATE:
-				player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 2000, 0, false, false, false));
+				living.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 2000, 0, false, false, false));
 				break;
 			case LEGGINGS:
-				player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2000, 0, false, false, false));
+				living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2000, 0, false, false, false));
 				break;
 			default: break;
 		}
 	}
 
-	protected void removeBuffs(Player player){
+	protected void removeBuffs(LivingEntity living){
 		switch(type){
 			case HELMET:
-				player.removeEffect(MobEffects.NIGHT_VISION);
+				living.removeEffect(MobEffects.NIGHT_VISION);
 				break;
 			case CHESTPLATE:
-				player.removeEffect(MobEffects.DIG_SPEED);
+				living.removeEffect(MobEffects.DIG_SPEED);
 				break;
 			case LEGGINGS:
-				player.removeEffect(MobEffects.MOVEMENT_SPEED);
+				living.removeEffect(MobEffects.MOVEMENT_SPEED);
 				break;
 			default: break;
 		}
 	}
 
-	protected void applyNerfs(Player player){
+	protected void applyNerfs(LivingEntity living){
 		switch(type){
 			case HELMET:
-				player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 2000, 0, false, false, false));
+				living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 2000, 0, false, false, false));
 				break;
 			case CHESTPLATE:
-				player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2000, 0, false, false, false));
+				living.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2000, 0, false, false, false));
 				break;
 			case LEGGINGS:
-				player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2000, 0, false, false, false));
+				living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2000, 0, false, false, false));
 				break;
 			default: break;
 		}
 	}
 
-	protected void removeNerfs(Player player){
+	protected void removeNerfs(LivingEntity living){
 		switch(type){
 			case HELMET:
-				player.removeEffect(MobEffects.BLINDNESS);
+				living.removeEffect(MobEffects.BLINDNESS);
 				break;
 			case CHESTPLATE:
-				player.removeEffect(MobEffects.DIG_SLOWDOWN);
+				living.removeEffect(MobEffects.DIG_SLOWDOWN);
 				break;
 			case LEGGINGS:
-				player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
+				living.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
 				break;
 			default: break;
 		}
 	}
 
-	public void removeEffects(Player player){
-		removeBuffs(player);
-		removeNerfs(player);
+	public void removeEffects(LivingEntity liging){
+		removeBuffs(liging);
+		removeNerfs(liging);
 	}
 }
