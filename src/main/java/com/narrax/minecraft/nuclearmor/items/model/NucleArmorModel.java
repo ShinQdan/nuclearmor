@@ -18,10 +18,10 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 @EventBusSubscriber(modid = NucleArmor.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class NucleArmorModel {
-	public static final ModelLayerLocation LAYER_HEAD = new ModelLayerLocation(new ResourceLocation("nuclearmor", "nuclear_helmet"), "main");
-	public static final ModelLayerLocation LAYER_CHEST = new ModelLayerLocation(new ResourceLocation("nuclearmor", "nuclear_chestplate"), "main");
-	public static final ModelLayerLocation LAYER_LEGS = new ModelLayerLocation(new ResourceLocation("nuclearmor", "nuclear_leggings"), "main");
-	public static final ModelLayerLocation LAYER_FEET = new ModelLayerLocation(new ResourceLocation("nuclearmor", "nuclear_boots"), "main");
+	public static final ModelLayerLocation LAYER_HEAD = new ModelLayerLocation(ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_helmet"), "main");
+	public static final ModelLayerLocation LAYER_CHEST = new ModelLayerLocation(ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_chestplate"), "main");
+	public static final ModelLayerLocation LAYER_LEGS = new ModelLayerLocation(ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_leggings"), "main");
+	public static final ModelLayerLocation LAYER_FEET = new ModelLayerLocation(ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_boots"), "main");
 
 	@SubscribeEvent
 	public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event){

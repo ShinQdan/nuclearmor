@@ -6,7 +6,7 @@ import com.mojang.logging.LogUtils;
 import com.narrax.minecraft.nuclearmor.items.ModItems;
 import com.narrax.minecraft.nuclearmor.items.NucleArmorItem;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -14,7 +14,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(NucleArmor.MODID)
@@ -31,25 +31,26 @@ public class NucleArmor {
     @EventBusSubscriber(modid = MODID, bus = Bus.GAME)
     public static class ModEvents{
         @SubscribeEvent
-        public static void armorDamageHandler(LivingHurtEvent event){
+        public static void armorDamageHandler(LivingIncomingDamageEvent event){
             for(ItemStack armor : event.getEntity().getArmorSlots()){
                 if(armor.getItem() instanceof NucleArmorItem nArmor){
-                    // LOGGER.info("Damage event fired with chest:" + nArmor.isPowered(armor));
-                    float dmg = nArmor.handleDamage(event.getEntity(), armor.getEquipmentSlot(), event.getSource(), event.getAmount());
-                    // LOGGER.info("Damage left: "+dmg);
-                    event.setAmount(dmg);
+                    // LOGGER.info("Damage event fired with powered chest: " + nArmor.isPowered(armor));
+                    float leftDmg = nArmor.handleDamage(event.getEntity(), armor.getEquipmentSlot(), event.getSource(), event.getAmount());
+                    // LOGGER.info("Damage left: "+leftDmg);
+                    event.setAmount(leftDmg);
+                    // LOGGER.info("Container new damage: "+event.getContainer().getNewDamage());
                 }
             }
         }
 
         @SubscribeEvent
         public static void armorChanged(LivingEquipmentChangeEvent event){
-            if(event.getEntity() instanceof Player player){
+            if(event.getEntity() instanceof LivingEntity entity){
                 if(event.getFrom().getItem() instanceof NucleArmorItem nArmor){
-                    nArmor.removeEffects(player);
+                    nArmor.removeEffects(entity);
                 }
                 if(event.getTo().getItem() instanceof NucleArmorItem nArmor){
-                    nArmor.addEffects(player);
+                    nArmor.addEffects(entity);
                 }
             }
         }

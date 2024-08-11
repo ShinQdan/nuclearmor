@@ -19,14 +19,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class NucleArmorMaterial {
-	public static final TagKey<Item> INGREDIENT_POWER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/uranium"));
-	public static final TagKey<Item> INGREDIENT_OTHER_TAG = ItemTags.create(new ResourceLocation("forge", "ingots/iron"));
+	public static final TagKey<Item> INGREDIENT_POWER_TAG = ItemTags.create(ResourceLocation.tryBuild("forge", "ingots/uranium"));
+	public static final TagKey<Item> INGREDIENT_OTHER_TAG = ItemTags.create(ResourceLocation.tryBuild("forge", "ingots/iron"));
 
 	public static final String NUCLEAR_NAME_CHEST = NucleArmor.MODID+":nuclear_armor_chest";
 
 	public static final Holder<ArmorMaterial> NUCLEAR_MATERIAL_CHEST = Registry.registerForHolder(
 		BuiltInRegistries.ARMOR_MATERIAL, 
-		new ResourceLocation(NucleArmor.MODID, "nuclear_armor_chest"),
+		ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_armor_chest"),
 		new ArmorMaterial(
 			Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 				map.put(ArmorItem.Type.BODY, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BODY));
@@ -39,8 +39,8 @@ public class NucleArmorMaterial {
 			ArmorMaterials.IRON.value().equipSound(),
 			() -> Ingredient.of(INGREDIENT_POWER_TAG),
 			List.of(
-				new ArmorMaterial.Layer(new ResourceLocation(NucleArmor.MODID, "nuclear_armor"), "", false),
-				new ArmorMaterial.Layer(new ResourceLocation(NucleArmor.MODID, "nuclear_armor"), "", false)
+				new ArmorMaterial.Layer(ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_armor"), "", false),
+				new ArmorMaterial.Layer(ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_armor"), "", false)
 			),
 			ArmorMaterials.IRON.value().toughness(),
 			ArmorMaterials.IRON.value().knockbackResistance()
@@ -48,7 +48,7 @@ public class NucleArmorMaterial {
 	);
 	public static final Holder<ArmorMaterial> NUCLEAR_MATERIAL_OTHER = Registry.registerForHolder(
 		BuiltInRegistries.ARMOR_MATERIAL, 
-		new ResourceLocation(NucleArmor.MODID, "nuclear_armor_other"),
+		ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_armor_other"),
 		new ArmorMaterial(
 			Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 				map.put(ArmorItem.Type.BODY, ArmorMaterials.IRON.value().getDefense(ArmorItem.Type.BODY));
@@ -61,8 +61,8 @@ public class NucleArmorMaterial {
 			ArmorMaterials.IRON.value().equipSound(),
 			() -> Ingredient.of(INGREDIENT_OTHER_TAG),
 			List.of(
-				new ArmorMaterial.Layer(new ResourceLocation(NucleArmor.MODID, "nuclear_armor"), "", false),
-				new ArmorMaterial.Layer(new ResourceLocation(NucleArmor.MODID, "nuclear_armor"), "", false)
+				new ArmorMaterial.Layer(ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_armor"), "", false),
+				new ArmorMaterial.Layer(ResourceLocation.tryBuild(NucleArmor.MODID, "nuclear_armor"), "", false)
 			),
 			ArmorMaterials.IRON.value().toughness(),
 			ArmorMaterials.IRON.value().knockbackResistance()
