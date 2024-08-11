@@ -7,7 +7,7 @@
     ],
     "key": {
         "l": {
-            "tag": "forge:ingots/lead"
+            "tag": "c:ingots/lead"
         },
         "b": {
             "item": "minecraft:iron_boots"

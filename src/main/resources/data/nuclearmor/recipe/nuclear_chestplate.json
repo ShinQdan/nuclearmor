@@ -7,10 +7,10 @@
     ],
     "key": {
         "l": {
-            "tag": "forge:ingots/lead"
+            "tag": "c:ingots/lead"
         },
         "u": {
-            "tag": "forge:ingots/uranium"
+            "tag": "c:ingots/uranium"
         },
         "i": {
             "item": "minecraft:iron_chestplate"

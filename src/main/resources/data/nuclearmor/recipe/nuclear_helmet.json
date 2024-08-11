@@ -7,7 +7,7 @@
     ],
     "key": {
         "l": {
-            "tag": "forge:ingots/lead"
+            "tag": "c:ingots/lead"
         },
         "h": {
             "item": "minecraft:iron_helmet"
